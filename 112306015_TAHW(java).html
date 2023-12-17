@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calculator</title>
+  <script>
+    // JavaScript code for the calculator
+    function add(a, b) {
+      return a + b;
+    }
+
+    function subtract(a, b) {
+      return a - b;
+    }
+
+    function multiply(a, b) {
+      return a * b;
+    }
+
+    function divide(a, b) {
+      if (b === 0) {
+        throw new Error("Division by zero is not allowed");
+      }
+      return a / b;
+    }
+
+    function promptForNumber(promptMessage) {
+      while (true) {
+        let input = parseFloat(prompt(promptMessage));
+        if (!isNaN(input)) {
+          return input;
+        }
+        alert("Please enter a valid number.");
+      }
+    }
+
+    function calculate() {
+      while (true) {
+        let num1 = promptForNumber("Enter the first number:");
+        let num2 = promptForNumber("Enter the second number:");
+
+        let operation = prompt("Enter the operation (+, -, *, /):");
+        let result;
+
+        switch (operation) {
+          case "+":
+            result = add(num1, num2);
+            break;
+          case "-":
+            result = subtract(num1, num2);
+            break;
+          case "*":
+            result = multiply(num1, num2);
+            break;
+          case "/":
+            try {
+              result = divide(num1, num2);
+            } catch (error) {
+              alert(error.message);
+              continue; // Restart the loop if division by zero
+            }
+            break;
+          default:
+            alert("Invalid operation");
+            continue; // Restart the loop for invalid operation
+        }
+
+        alert("Result: " + result);
+
+        let performAgain = prompt("Do you want to perform another calculation? (yes/no)");
+
+        if (performAgain.toLowerCase() !== "yes") {
+          alert("Calculator closed.");
+          break; // Exit the loop if user does not want to perform another calculation
+        }
+      }
+    }
+
+    // Calculate as soon as the page loads
+    window.onload = function() {
+      calculate();
+    };
+  </script>
+</head>
+<body>
+</body>
+</html>
